@@ -122,6 +122,11 @@ function processEvent (eventHandlerName, obj) {
         Object.assign(event.target, event.detail)
       }
       Object.assign(event.currentTarget, event.detail)
+
+      // 使用EventChannel派发点击事件，用来实现通用埋点
+      if (event.type === 'tap') {
+        eventCenter.trigger('tracker-tap', event);
+      }
     }
 
     const scope = this.$component
