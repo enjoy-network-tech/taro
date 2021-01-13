@@ -12,6 +12,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c rollup.config.js",
+    "release": "tar --exclude='./node_modules' --exclude='yarn.lock' -vzcf taro-weapp-2.2.16.tgz .",
     "watch": "rollup -c rollup.config.js -w"
   },
   "repository": {
