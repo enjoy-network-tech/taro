@@ -2,6 +2,18 @@
 # yarn lockfile v1
 
 
+"@tarojs/taro@2.2.16":
+  version "2.2.16"
+  resolved "https://registry.npm.taobao.org/@tarojs/taro/download/@tarojs/taro-2.2.16.tgz?cache=0&sync_timestamp=1610094135454&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40tarojs%2Ftaro%2Fdownload%2F%40tarojs%2Ftaro-2.2.16.tgz#7d11b44742d69128dc9181ba6b4dd3af1c31ef04"
+  integrity sha1-fRG0R0LWkSjckYG6a03Trxwx7wQ=
+  dependencies:
+    "@tarojs/utils" "2.2.16"
+
+"@tarojs/utils@2.2.16":
+  version "2.2.16"
+  resolved "https://registry.npm.taobao.org/@tarojs/utils/download/@tarojs/utils-2.2.16.tgz#01a3179835113a5fb986d04659591b0344490852"
+  integrity sha1-AaMXmDUROl+5htBGWVkbA0RJCFI=
+
 "js-tokens@^3.0.0 || ^4.0.0":
   version "4.0.0"
   resolved "https://registry.npm.taobao.org/js-tokens/download/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
