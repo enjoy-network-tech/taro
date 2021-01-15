@@ -1,0 +1,172 @@
+"use strict";
+
+var _ = require("..");
+
+var _2 = _interopRequireDefault(_);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+testRule(_2.default, {
+  ruleName: _.ruleName,
+  config: [true],
+
+  accept: [
+    {
+      code:
+        "\n      .foo {\n        border-color: red;\n        height: 0;\n        min-width: 700px;\n      }\n      ",
+      description: "accepts supported CSS properties"
+    },
+    {
+      code:
+        "\n      .foo {\n        elevation: 6;\n        shadow-color: black;\n      }\n      ",
+      description: "accepts React Native specific properties"
+    },
+    {
+      code: ".foo { --bg-color: white; }",
+      description: "ignore standard CSS variables"
+    },
+    {
+      code: ".foo { *width: 100px; }",
+      description: "ignore CSS hacks"
+    }
+  ],
+
+  reject: [
+    {
+      code: ".foo { colr: blue; }",
+      description: "rejects property with typo",
+      message: _.messages.rejected("colr"),
+      line: 1,
+      column: 8
+    },
+    {
+      code: ".foo { COLR: blue; }",
+      description: "rejects uppercase property with typo",
+      message: _.messages.rejected("COLR"),
+      line: 1,
+      column: 8
+    },
+    {
+      code: ".foo {\n  colr: blue;\n}",
+      description: "rejects property with typo when there are newlines",
+      message: _.messages.rejected("colr"),
+      line: 2,
+      column: 3
+    },
+    {
+      code: ".foo { *wdth: 100px; }",
+      description: "rejects css hacks with typo",
+      message: _.messages.rejected("wdth"),
+      line: 1,
+      column: 8
+    },
+    {
+      code: "\n      .foo {\n        word-wrap: break-word;\n      }\n    ",
+      description: "rejects unsupported CSS properties",
+      message: _.messages.rejected("word-wrap"),
+      line: 3,
+      column: 9
+    },
+    {
+      code:
+        "\n      .foo {\n        -webkit-align-self: stretch;\n      }\n    ",
+      description: "rejects CSS properties with vendor prefix",
+      message: _.messages.rejected("-webkit-align-self"),
+      line: 3,
+      column: 9
+    },
+    {
+      code:
+        "\n      .foo {\n        border: 1px #000 solid;\n        box-shadow: 1px 2px 3px red;\n      }\n      ",
+      description: "rejects css-to-react-native specific properties"
+    }
+  ]
+});
+
+testRule(_2.default, {
+  ruleName: _.ruleName,
+  syntax: "scss",
+  config: [true],
+
+  accept: [
+    {
+      code: ".foo { $bgColor: white; }",
+      description: "ignore SCSS variables"
+    },
+    {
+      code: ".foo { #{$prop}: black; }",
+      description: "ignore property interpolation"
+    },
+    {
+      code: ".foo { border: { style: solid; } }",
+      description: "ignore nested properties"
+    }
+  ]
+});
+
+testRule(_2.default, {
+  ruleName: _.ruleName,
+  syntax: "less",
+  config: [true],
+
+  accept: [
+    {
+      code: ".foo { @bgColor: white; }",
+      description: "ignore LESS variables"
+    },
+    {
+      code: ".foo { @{prop}: black; }",
+      description: "ignore property interpolation"
+    },
+    {
+      code: ".foo { transform+: rotate(15deg); }",
+      descritpion: "Append property value with space usign +"
+    },
+    {
+      code: ".foo { transform+_: rotate(15deg); }",
+      descritpion: "Append property value with space using +_"
+    }
+  ]
+});
+
+testRule(_2.default, {
+  ruleName: _.ruleName,
+  config: [
+    true,
+    {
+      ignoreProperties: ["-moz-overflow-scrolling", "/^my-/"]
+    }
+  ],
+
+  accept: [
+    {
+      code: ".foo { -moz-overflow-scrolling: auto; }",
+      description: "Ignores with a string property"
+    },
+    {
+      code: ".foo { my-property: 1; }",
+      description: "Ignores with a regex property"
+    },
+    {
+      code: ".foo { my-other-property: 1; }",
+      description: "Ignores with a regex property"
+    }
+  ],
+
+  reject: [
+    {
+      code: ".foo { overflow-scrolling: auto; }",
+      message: _.messages.rejected("overflow-scrolling"),
+      line: 1,
+      column: 8
+    },
+    {
+      code: ".foo { not-my-property: 1; }",
+      message: _.messages.rejected("not-my-property"),
+      line: 1,
+      column: 8
+    }
+  ]
+});
