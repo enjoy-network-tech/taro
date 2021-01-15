@@ -1,6 +1,6 @@
 {
-  "name": "@tarojs/taro-weapp-trigger-event",
-  "version": "2.2.16",
+  "name": "taro-weapp-trigger-event",
+  "version": "2.2.16-fix",
   "description": "Taro weapp framework",
   "main": "index.js",
   "files": [
