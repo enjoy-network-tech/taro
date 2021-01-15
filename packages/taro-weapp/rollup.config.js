@@ -7,7 +7,7 @@ const cwd = __dirname
 
 const baseConfig = {
   input: join(cwd, 'src/index.js'),
-  external: ['nervjs', '@tarojs/taro'],
+  // external: ['nervjs', '@tarojs/taro'],
   output: [
     {
       file: join(cwd, 'dist/index.js'),
@@ -25,8 +25,8 @@ const baseConfig = {
   ],
   plugins: [
     alias({
-      '@tarojs/taro': join(cwd, '../taro/src/index'),
-      '@tarojs/utils': join(cwd, '../taro-utils/src/index')
+      '@tarojs/taro': join(cwd, 'node_modules/@tarojs/taro/dist/index'),
+      '@tarojs/utils': join(cwd, 'node_modules/@tarojs/utils/dist/index')
     }),
     resolve({
       preferBuiltins: false
